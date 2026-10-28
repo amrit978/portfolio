@@ -399,6 +399,12 @@ body.loading {
   width: 500px;
   padding: 5px 15px;
 }
+.mid .resume{
+  color:#fff;
+}
+.mid .resume span{
+  color:#fff;
+}
 
 .mid .get {
   border-color: #E0A458;
