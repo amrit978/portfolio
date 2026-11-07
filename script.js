@@ -1,3 +1,4 @@
+
 const loaderScreen = document.getElementById("loader-screen");
 const HOLD_TIME = 600;                // after the animation ends, keep the finished word on screen for 1s
 const TEXT_FADE = 500;                 // then fade the "loading" word out completely (ms)
@@ -70,7 +71,42 @@ setTimeout(revealHome, 8000);          // safety: never leave visitors stuck on 
 const links = document.querySelectorAll('.nav-elements a');
 const sections = document.querySelectorAll('#home, #about, #skills, #projects, #contact');
 const navBar = document.querySelector('.nav-bar');
+const navToggle = document.getElementById('nav-toggle');
 const compact = window.matchMedia('(max-width: 1100px)');
+
+/* ---- mobile menu toggle ---- */
+if (navToggle && navBar) {
+  function closeMenu() {
+    navBar.classList.remove('menu-open');
+    navToggle.classList.remove('is-active');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  navToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = navBar.classList.toggle('menu-open');
+    navToggle.classList.toggle('is-active', isOpen);
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  links.forEach((link) => {
+    link.addEventListener('click', () => {
+      closeMenu();
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!navBar.contains(e.target)) {
+      closeMenu();
+    }
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navBar.classList.contains('menu-open')) {
+      closeMenu();
+    }
+  });
+}
 
 // Highlight the nav link of the section under a reference line.
 // Desktop: the middle of the screen (as before). Small screens: just below
@@ -127,3 +163,6 @@ if (boxes && 'IntersectionObserver' in window) {
     boxes.classList.toggle('is-offscreen', !entries[0].isIntersecting);
   }, { rootMargin: '100px' }).observe(boxes);
 }
+
+
+

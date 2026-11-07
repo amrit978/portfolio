@@ -438,7 +438,7 @@ body.loading {
 
 
 
-/*-------------------model----------------------*/
+/*-------------------conatact-section model----------------------*/
 
 .boxes {
   --size: 32px;
@@ -634,6 +634,7 @@ body.loading {
 }
 
 
+/*----------------------- Icons animation ---------------------*/
 
 .Btn {
   width: 45px;
@@ -685,4 +686,63 @@ body.loading {
   border: 1px solid rgba(216, 216, 216, 0.466);
   background-color: rgba(190, 190, 190, 0.466);
   backdrop-filter: blur(4px);
+}
+
+
+/* ---------- terminal block cursor (desktop with a mouse only) ---------- */
+
+
+
+.t-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 22px;
+  margin: -11px 0 0 -6px;
+  background: #E0A458;
+  border: 1px solid #E0A458;
+  pointer-events: none;
+  z-index: 10000;                 /* above the loader (9999) and the nav (1000) */
+  opacity: 0;
+  will-change: translate;
+  transition: opacity 0.25s ease, scale 0.2s ease, background-color 0.2s ease;
+  animation: blink 1s steps(2, start) infinite;   /* same blink as the hero cursor */
+}
+
+.t-cursor.on {
+  opacity: 1;
+}
+
+/* solid while the mouse moves, blinking when it rests (like a terminal) */
+.t-cursor.moving {
+  animation: none;
+}
+
+/* over links and buttons: grows into a see-through box so the text stays readable */
+.t-cursor.hover {
+  background: rgba(224, 164, 88, 0.22);
+  scale: 2.2;
+  animation: none;
+}
+
+.t-cursor.down {
+  scale: 0.75;
+}
+
+.t-cursor.hover.down {
+  scale: 1.8;
+}
+
+/* the normal arrow is hidden only after the first mouse move */
+html.custom-cursor,
+html.custom-cursor * {
+  cursor: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-cursor {
+    animation: none;
+    transition: none;
+  }
 }

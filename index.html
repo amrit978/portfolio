@@ -71,7 +71,13 @@
                 </a>
             </div>
 
-            <div class="nav-elements">
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="bar bar-1"></span>
+                <span class="bar bar-2"></span>
+                <span class="bar bar-3"></span>
+            </button>
+
+            <div class="nav-elements" id="nav-elements">
                 <div><a href="#about">about</a></div>
                 <div><a href="#skills">skills</a></div>
                 <div><a href="#projects">projects</a></div>
@@ -83,12 +89,38 @@
 
         <div id="home" class="hero-section">
             <div>
-                <h1 class="hero">hi, i'm amrit<span class="cursor"></span></h1>
+                <h1 class="hero"><span class="hero-hi">hi,</span><br class="hero-break"><span class="hero-name">i'm amrit<span class="cursor"></span></span></h1>
             </div>
             <div class="tagline"> i build apps, systems, products, sometimes just for the fun of
                 figuring out how they work.</div>
 
-            <div class="img"><img src="img/Component 1.svg" alt="terminal-tag"></div>
+            <div class="img">
+                <img class="desktop-svg" src="img/Component 1.svg" alt="terminal-tag">
+                <div class="coffee-terminal" aria-label="Terminal status: coffee">
+                    <div class="coffee-header">
+                        <div class="terminal-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="coffee-cup-anim">
+                            <div class="steam-container">
+                                <span class="steam s1"></span>
+                                <span class="steam s2"></span>
+                                <span class="steam s3"></span>
+                            </div>
+                            <div class="coffee-cup">
+                                <span class="cup-body"></span>
+                                <span class="cup-handle"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="coffee-body">
+                        <span class="coffee-prompt">amrit@portfolio:~$</span>
+                        <span class="coffee-cmd">sudo wake-up --reason=coffee</span>
+                    </div>
+                </div>
+            </div>
 
         </div>
 

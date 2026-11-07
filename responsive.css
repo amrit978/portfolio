@@ -1,21 +1,43 @@
 /* ==========================================================
-   responsive.css
-   Loaded AFTER app.css (or pasted at the very bottom of it).
-   Desktop (above 1100px) looks exactly as before; below that,
-   spacing and sizes shrink with the window.
+   responsive.css - Mobile & Tablet Responsive Stylesheet
+   
+   Aesthetic Principles:
+   1. Authentic Portfolio Identity: No artificial cards/pill boxes around elements.
+   2. Clear Navigation: Increased 'amrit' brand size, animated hamburger button with functional dropdown.
+   3. Distinct Hero: 2-line split ("hi," / "i'm amrit _"), large expressive typography.
+   4. Hero Coffee Terminal: Animated coffee cup with rising steam + "amrit@portfolio:~$ sudo wake-up --reason=coffee".
+   5. Generous vertical breathing room & smooth scrolling.
+   6. Exact heading uniformity across all sections (~/about.md, ~/skills, ~/projects, ~/contact).
+   7. Consistent section separation lines: All separation lines match the exact width, inset, and #9BA3AE style of the footer line.
+   8. Restored 3D cube model animation with generous clearance to prevent any overlap with the footer line.
    ========================================================== */
 
-/* ---------- safe defaults for every screen size ---------- */
+/* ---------- Core Safe Defaults & Smooth Scroll ---------- */
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
   overflow-x: hidden;
 }
 
-.hero-section .img img {
+/* Base desktop states for markup enhancements */
+.hero-break {
+  display: none;
+}
+
+.nav-toggle {
+  display: none;
+}
+
+.coffee-terminal {
+  display: none;
+}
+
+.desktop-svg {
+  display: block;
   max-width: 100%;
   height: auto;
 }
@@ -24,34 +46,31 @@ body {
   overflow-wrap: anywhere;
 }
 
-/* ---------- fluid type ---------- */
+/* Fluid type for large screens (scales smoothly between 1100px and 2000px) */
 .hero-section .hero {
-  font-size: clamp(2.25rem, 8.5vw, 6rem);
+  font-size: clamp(2.75rem, 6.5vw, 6rem);
 }
 
 .cursor {
-  width: clamp(24px, 4.5vw, 52px);
+  width: clamp(24px, 4vw, 52px);
   height: clamp(6px, 1vw, 10px);
 }
 
-/* the heading text is an <h1> inside these boxes, so size the h1 itself.
-   10vw keeps long titles like "~/projects" inside the screen; 6rem = the
-   original desktop size */
 .heading h1,
 .skills-heading h1,
 .project-heading h1,
 .Contact-heading h1 {
-  font-size: clamp(1.6rem, 10vw, 6rem);
+  font-size: clamp(2rem, 4.5vw, 3rem);
   overflow-wrap: anywhere;
 }
 
 .hero-section .tagline,
 .description {
-  font-size: clamp(1.05rem, 2.2vw, 1.5rem);
+  font-size: clamp(1.05rem, 2vw, 1.5rem);
 }
 
 .skill-group h3 {
-  font-size: clamp(1.35rem, 3vw, 2rem);
+  font-size: clamp(1.35rem, 2.8vw, 2rem);
 }
 
 .contact-section {
@@ -60,123 +79,590 @@ body {
 
 
 /* ==========================================================
-   TABLETS AND SMALLER  (max 1100px)
-   Sections no longer fill a whole screen each, and all
-   spacing is based on the window width (vw) so it shrinks
-   smoothly as the window gets narrower.
+   1. TABLETS & LAPTOPS (max 1100px)
    ========================================================== */
 @media (max-width: 1100px) {
-  /* the nav is fixed, so anchor links must stop below it */
   html {
-    scroll-padding-top: 90px;
+    scroll-padding-top: 96px;
   }
 
   .nav-bar {
-    padding: 28px 5%;
+    padding: 22px 6%;
     font-size: 18px;
+    background-color: rgba(26, 32, 40, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(155, 163, 174, 0.2);
   }
 
   .name a h1 {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   .nav-elements {
-    gap: clamp(18px, 4vw, 36px);
+    gap: clamp(20px, 3.5vw, 36px);
   }
 
-  /* every section: height follows its content */
   .hero-section,
   .about-section,
   .skills-section,
   .projects-section,
   .contact-section {
-    flex-wrap: nowrap;   /* wrapped columns size to the widest child and push text off-screen */
+    flex-wrap: nowrap;
     min-width: 0;
+    min-height: auto;
+    padding: clamp(60px, 9vw, 90px) 6%;
+    box-sizing: border-box;
+    width: 100%;
+    border-bottom: none !important;
   }
 
+  /* Consistent section separation lines matching footer width and style */
+  .hero-section,
   .about-section,
   .skills-section,
-  .projects-section,
-  .contact-section {
-    min-height: 0;
-    padding: clamp(24px, 4.5vw, 52px) 5%;
+  .projects-section {
+    position: relative;
   }
 
-  /* hero only needs room to clear the fixed nav */
+  .hero-section::after,
+  .about-section::after,
+  .skills-section::after,
+  .projects-section::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 6%;
+    right: 6%;
+    height: 1px;
+    background-color: #9BA3AE;
+    pointer-events: none;
+  }
+
+  .contact-section {
+    border-bottom: none !important;
+  }
+
   .hero-section {
-    min-height: 0;
-    padding: clamp(108px, 15vw, 150px) 5% clamp(20px, 4vw, 44px);
+    padding-top: clamp(130px, 16vw, 170px);
   }
 
   .heading,
   .skills-heading,
   .project-heading,
   .Contact-heading {
-    margin-bottom: clamp(10px, 2vw, 22px);
+    margin-bottom: 24px;
   }
 
   .description {
-    padding-top: clamp(0px, 1vw, 8px);
+    padding-top: 0;
+    line-height: 1.6;
   }
 
   .hero-section .hero {
-    margin-bottom: clamp(16px, 3vw, 32px);
+    margin-bottom: 20px;
   }
 
   .hero-section .tagline {
-    margin-bottom: clamp(18px, 3vw, 36px);
+    margin-bottom: 32px;
+    line-height: 1.55;
   }
 
   .projects-section .pro-col {
     flex-wrap: wrap;
-    gap: clamp(14px, 2.5vw, 24px);
+    gap: 28px;
   }
 
   .button {
-    flex: 1 1 280px;
+    flex: 1 1 300px;
+    max-width: 100%;
     min-height: 0;
   }
 
   .boxes {
-    margin-right: 60px;
+    margin-right: 40px;
+    --size: 28px;
   }
 
   .footer {
-    margin-left: 5%;
-    margin-right: 5%;
+    margin: 36px 6% 24px;
+    padding-top: 20px;
+    border-top: 1px solid #9BA3AE;
   }
 }
 
 
 /* ==========================================================
-   TABLETS PORTRAIT / PHONES  (max 768px)
+   2. MOBILE PHONES & PORTRAIT TABLETS (max 768px)
    ========================================================== */
 @media (max-width: 768px) {
   html {
-    scroll-padding-top: 70px;
+    scroll-padding-top: 76px;
   }
 
+  /* ---------- Nav Bar ---------- */
   .nav-bar {
-    padding: 18px 5%;
-    font-size: 16px;
+    padding: 16px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1A2028;
+    border-bottom: 1px solid rgba(155, 163, 174, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
   }
 
+  /* Clearer, prominent amrit logo */
   .name a h1 {
-    font-size: 18px;
+    font-size: 24px;
+    color: #fff;
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+    letter-spacing: -0.01em;
   }
 
-  /* compact screens: hide the nav links, only "amrit" stays at the top */
+  /* Right-corner Animated Hamburger Button */
+  .nav-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .nav-toggle .bar {
+    display: block;
+    width: 100%;
+    height: 2.5px;
+    background-color: #fff;
+    border-radius: 2px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease, background-color 0.2s ease;
+    transform-origin: center;
+  }
+
+  .nav-toggle:hover .bar,
+  .nav-toggle:focus-visible .bar {
+    background-color: #E0A458;
+  }
+
+  /* Animated Morph from Hamburger to X */
+  .nav-toggle.is-active .bar-1 {
+    transform: translateY(8.75px) rotate(45deg);
+    background-color: #E0A458;
+  }
+
+  .nav-toggle.is-active .bar-2 {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .nav-toggle.is-active .bar-3 {
+    transform: translateY(-8.75px) rotate(-45deg);
+    background-color: #E0A458;
+  }
+
+  /* Mobile Nav Dropdown (Functional & Styled to Portfolio Theme) */
   .nav-elements {
-    display: none;
+    display: flex !important;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: rgba(26, 32, 40, 0.98);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(155, 163, 174, 0.2);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 6%;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: max-height 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.24s ease, padding 0.32s ease;
+    box-shadow: 0 16px 28px rgba(0, 0, 0, 0.4);
   }
 
-  /* the nav bar is shorter now, so the hero needs less room above it */
+  .nav-bar.menu-open .nav-elements {
+    max-height: 280px;
+    opacity: 1;
+    padding: 12px 6% 20px;
+    pointer-events: auto;
+  }
+
+  .nav-elements div {
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .nav-elements div:last-child {
+    border-bottom: none;
+  }
+
+  .nav-elements a {
+    display: block;
+    padding: 13px 0;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .nav-elements a:hover,
+  .nav-elements a.active {
+    color: #E0A458;
+    transform: translateX(6px);
+    text-decoration: none;
+  }
+
+  /* ---------- Section Spacing & Refined Inset Dividers ---------- */
+  .hero-section,
+  .about-section,
+  .skills-section,
+  .projects-section,
+  .contact-section {
+    min-height: auto;
+    padding: clamp(52px, 12vh, 76px) 6%;
+    box-sizing: border-box;
+    width: 100%;
+    border-bottom: none !important;
+  }
+
+  /* Separation lines between sections have exact same width and #9BA3AE style as the footer line */
+  .hero-section,
+  .about-section,
+  .skills-section,
+  .projects-section {
+    position: relative;
+  }
+
+  .hero-section::after,
+  .about-section::after,
+  .skills-section::after,
+  .projects-section::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 6%;
+    right: 6%;
+    height: 1px;
+    background-color: #9BA3AE;
+    pointer-events: none;
+  }
+
+  /* Contact section has no bottom border; footer provides the single separator line */
+  .contact-section {
+    border-bottom: none !important;
+    padding-bottom: 12px;
+  }
+
+  /* ---------- Uniform Section Headings ---------- */
+  .heading,
+  .skills-heading,
+  .project-heading,
+  .Contact-heading {
+    margin-bottom: 24px;
+  }
+
+  .heading h1,
+  .skills-heading h1,
+  .project-heading h1,
+  .Contact-heading h1 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(2rem, 8vw, 2.45rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin: 0;
+  }
+
+  /* ---------- Hero Section ---------- */
   .hero-section {
-    padding-top: 90px;
+    padding-top: clamp(105px, 20vh, 132px);
+    padding-bottom: clamp(48px, 10vh, 68px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Split hero heading: 'hi,' above, 'i'm amrit _' below */
+  .hero-break {
+    display: block !important;
+  }
+
+  .hero-section .hero {
+    font-size: clamp(2.4rem, 10.5vw, 3.4rem);
+    line-height: 1.15;
+    margin-bottom: 20px;
+    color: #fff;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+
+  .hero-hi {
+    display: inline;
+  }
+
+  .hero-name {
+    display: inline-flex;
+    align-items: baseline;
+    flex-wrap: nowrap;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: clamp(20px, 5vw, 30px);
+    height: 5px;
+    background-color: #E0A458;
+    margin-left: 8px;
+    vertical-align: baseline;
+    animation: blink 1s steps(2, start) infinite;
+  }
+
+  .hero-section .tagline {
+    font-family: "Space Grotesk", sans-serif;
+    color: #9BA3AE;
+    font-size: clamp(1.05rem, 4vw, 1.2rem);
+    line-height: 1.55;
+    max-width: min(100%, 540px);
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-section .img {
+    width: 100%;
+    max-width: min(100%, 500px);
+    margin-top: 4px;
+  }
+
+  /* Hide static SVG in mobile mode */
+  .desktop-svg {
+    display: none !important;
+  }
+
+  /* Animated Coffee Cup Terminal Widget */
+  .coffee-terminal {
+    display: flex !important;
+    flex-direction: column;
+    background-color: #0E131A;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    width: 100%;
+    max-width: 500px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  .coffee-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px 8px;
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .terminal-dots {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .terminal-dots .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .terminal-dots .red { background-color: #FF543E; }
+  .terminal-dots .yellow { background-color: #E0A458; }
+  .terminal-dots .green { background-color: #88FF3E; }
+
+  /* Animated Steaming Coffee Cup */
+  .coffee-cup-anim {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding-top: 10px;
+  }
+
+  .steam-container {
+    display: flex;
+    gap: 4px;
+    position: absolute;
+    top: -2px;
+    left: 3px;
+  }
+
+  .steam {
+    display: block;
+    width: 2px;
+    height: 8px;
+    background: #E0A458;
+    border-radius: 2px;
+    opacity: 0;
+    animation: steamWave 1.9s ease-out infinite;
+  }
+
+  .steam.s1 { animation-delay: 0s; }
+  .steam.s2 { animation-delay: 0.5s; height: 10px; }
+  .steam.s3 { animation-delay: 1s; }
+
+  @keyframes steamWave {
+    0% {
+      transform: translateY(0) scaleX(1);
+      opacity: 0;
+    }
+    30% {
+      opacity: 0.9;
+    }
+    70% {
+      transform: translateY(-8px) scaleX(1.4) skewX(4deg);
+      opacity: 0.5;
+    }
+    100% {
+      transform: translateY(-15px) scaleX(1.7) skewX(-4deg);
+      opacity: 0;
+    }
+  }
+
+  .coffee-cup {
+    position: relative;
+    width: 20px;
+    height: 15px;
+  }
+
+  .cup-body {
+    display: block;
+    width: 16px;
+    height: 14px;
+    border: 2px solid #E0A458;
+    border-radius: 0 0 6px 6px;
+    background: transparent;
+  }
+
+  .cup-handle {
+    position: absolute;
+    right: 0px;
+    top: 2px;
+    width: 6px;
+    height: 8px;
+    border: 1.5px solid #E0A458;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .coffee-body {
+    padding: 14px 16px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: clamp(0.78rem, 3.4vw, 0.92rem);
+    line-height: 1.45;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 8px;
+    align-items: baseline;
+  }
+
+  .coffee-prompt {
+    color: #E0A458;
+    font-weight: 600;
+  }
+
+  .coffee-cmd {
+    color: #9BA3AE;
+  }
+
+  /* ---------- About Section ---------- */
+  .description {
+    font-size: clamp(1.02rem, 3.8vw, 1.15rem);
+    line-height: 1.65;
+    color: #9BA3AE;
+    padding-top: 0;
+    max-width: min(100%, 600px);
+  }
+
+  .description br {
+    display: block;
+    content: "";
+    margin-top: 14px;
+  }
+
+  /* ---------- Skills Section (Original clean design without artificial boxes) ---------- */
+  .skills-section {
+    gap: 26px;
+  }
+
+  .skill-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .skill-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .skill-group h3 {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #E0A458;
+    margin-bottom: 2px;
+  }
+
+  .skill-group .element {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+  }
+
+  .skill-group .element > div {
+    display: inline-flex;
+  }
+
+  /* Clean text without card/pill boxes */
+  .skill-group li {
+    list-style-type: none;
+    color: #9BA3AE;
+    display: inline-flex;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 1rem;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* ---------- Projects Section (Desktop style & interaction preserved) ---------- */
+  .projects-section {
+    gap: 20px;
   }
 
   .projects-section .pro-col {
+    display: flex;
     flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    padding-left: 4px;
+    padding-bottom: 6px;
   }
 
   .projects-section .pro-col > div {
@@ -184,104 +670,269 @@ body {
   }
 
   .button {
+    display: block;
     width: 100%;
     max-width: 100%;
+    min-height: auto;
+    background: #1A2028 !important;
+    border: 1px solid #1A2028 !important;
+    border-radius: 4px;
+    padding: 1.2em 1.4em;
+    text-decoration: none;
+    color: #fff;
+    transition: 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 
-  .skills-section {
-    gap: 12px;
+  .button p:first-child {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.875rem;
+    color: #fff;
+    margin-bottom: 6px;
   }
 
-  .skill-group .element {
-    flex-wrap: wrap;
+  .button h3 {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 1.35rem;
+    color: #E0A458;
+    margin-bottom: 8px;
   }
 
+  .button .pro-desc {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #9BA3AE;
+    margin-bottom: 12px;
+  }
+
+  .button .pro-tech {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.85rem;
+    color: #fff;
+    line-height: 1.4;
+  }
+
+  /* Desktop signature pop & amber shadow on hover / tap */
+  .button:hover,
+  .button:focus-visible,
+  .button:active {
+    color: #9BA3AE !important;
+    transform: translate(0.25rem, -0.25rem) !important;
+    background: #1A2028 !important;
+    box-shadow: -0.25rem 0.25rem #E0A458 !important;
+    border-color: #1A2028 !important;
+  }
+
+  /* ---------- Contact Section & Model ---------- */
   .con-page {
+    display: flex;
     flex-direction: column;
     align-items: stretch;
+    width: 100%;
+    overflow: visible;
   }
 
   .contact-section {
     max-width: 100%;
-    gap: 12px;
+    gap: 18px;
+    padding-bottom: 10px;
+  }
+
+  .Contact-heading {
+    margin-bottom: 8px;
+  }
+
+  .contact-section > p {
+    font-size: clamp(1.05rem, 3.8vw, 1.25rem);
+    color: #9BA3AE;
+    margin-bottom: 6px;
   }
 
   .mid {
+    display: flex;
+    gap: 14px;
     width: 100%;
-    flex-wrap: wrap;
-    padding: 5px 0;
+    max-width: 100%;
+    padding: 0;
+    margin: 4px 0 10px;
+  }
+
+  /* Original transparent button containers with clean borders */
+  .contact-section .mid .con {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid;
+    border-radius: 10px;
+    padding: 8px 18px;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .mid .get {
+    border-color: #E0A458 !important;
+    color: #E0A458 !important;
+  }
+
+  .mid .get h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #E0A458;
+    margin: 0;
+  }
+
+  .mid .resume {
+    border-color: #fff !important;
+  }
+
+  .mid .resume a {
+    color: #fff !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .mid .resume span {
+    color: #fff;
+  }
+
+  .mid img {
+    height: 18px;
+  }
+
+  .contact-section > h3 {
+    font-family: "JetBrains Mono", monospace;
+    font-size: clamp(1rem, 4vw, 1.25rem);
+    color: #E2E8F0;
+    word-break: break-all;
+    margin: 6px 0;
   }
 
   .con-logo {
-    flex-wrap: wrap;
+    display: flex;
+    gap: 12px;
+    margin-top: 4px;
   }
 
+  /* 3D Cube Model: scaled and spaced to ensure zero overlap with the footer divider line */
   .boxes {
-    --size: 26px;
-    margin: 36px auto 96px;
+    display: block !important;
+    --size: 22px;
+    margin: 36px auto 95px auto;
   }
 
+  /* ---------- Footer ---------- */
   .footer {
-    font-size: 12px;
-    margin-bottom: 16px;
+    margin: 28px 6% 20px;
+    padding-top: 20px;
+    border-top: 1px solid #9BA3AE;
+    font-size: clamp(0.72rem, 2.8vw, 0.85rem);
+    line-height: 1.8;
+    color: #7a828d;
+    text-align: left;
+  }
+
+  /* Hide mouse cursor artifacts on touch screens */
+  .t-cursor {
+    display: none !important;
   }
 
   .loader-screen .loader {
-    transform: scale(1.5);
+    transform: scale(1.35);
   }
 }
 
 
 /* ==========================================================
-   PHONES  (max 560px)
+   3. SMALL MOBILE PHONES (max 480px)
    ========================================================== */
-@media (max-width: 560px) {
+@media (max-width: 480px) {
   html {
-    scroll-padding-top: 60px;
+    scroll-padding-top: 72px;
   }
 
   .nav-bar {
-    padding: 12px 5%;
-    font-size: 15px;
+    padding: 14px 5.5%;
   }
 
   .name a h1 {
-    font-size: 17px;
+    font-size: 22px;
   }
 
+  .hero-section,
   .about-section,
   .skills-section,
   .projects-section,
   .contact-section {
-    padding: 20px 5%;
+    padding: clamp(44px, 9vh, 60px) 5.5%;
+  }
+
+  /* Inset lines matching 5.5% footer margin */
+  .hero-section::after,
+  .about-section::after,
+  .skills-section::after,
+  .projects-section::after {
+    left: 5.5%;
+    right: 5.5%;
+  }
+
+  .contact-section {
+    padding-bottom: 12px;
   }
 
   .hero-section {
-    padding: 76px 5% 16px;
+    padding-top: clamp(96px, 18vh, 120px);
+  }
+
+  .hero-section .hero {
+    font-size: clamp(2.1rem, 9.5vw, 2.8rem);
+    margin-bottom: 16px;
+  }
+
+  .hero-section .tagline {
+    font-size: clamp(0.98rem, 3.8vw, 1.1rem);
+    line-height: 1.55;
+    margin-bottom: 22px;
+  }
+
+  .heading h1,
+  .skills-heading h1,
+  .project-heading h1,
+  .Contact-heading h1 {
+    font-size: clamp(1.8rem, 7.8vw, 2.15rem);
   }
 
   .button {
-    padding: 0.9em 1.1em;
+    padding: 1.1em 1.25em;
   }
 
-  .skills-section {
+  .button h3 {
+    font-size: 1.2rem;
+  }
+
+  .mid {
+    flex-wrap: wrap;
     gap: 10px;
   }
 
-  .skill-group h3 {
-    margin-bottom: 0;
+  .mid .con {
+    padding: 7px 15px;
   }
 
-  .skill-group li {
-    font-size: 1rem;
-  }
-
-  .mid .amartya {
-    font-size: 0.95rem;
+  .boxes {
+    --size: 20px;
+    margin: 30px auto 85px auto;
   }
 
   .footer {
-    font-size: 11px;
+    margin: 24px 5.5% 20px;
+    font-size: 0.72rem;
   }
 
   .loader-screen .loader {
@@ -291,11 +942,71 @@ body {
 
 
 /* ==========================================================
-   VERY SMALL PHONES  (max 360px)
+   4. VERY SMALL PHONES (max 360px)
    ========================================================== */
 @media (max-width: 360px) {
   .nav-bar {
-    font-size: 14px;
+    padding: 12px 4.5%;
+  }
+
+  .name a h1 {
+    font-size: 20px;
+  }
+
+  .hero-section,
+  .about-section,
+  .skills-section,
+  .projects-section,
+  .contact-section {
+    padding: 38px 4.5%;
+  }
+
+  /* Inset lines matching 4.5% footer margin */
+  .hero-section::after,
+  .about-section::after,
+  .skills-section::after,
+  .projects-section::after {
+    left: 4.5%;
+    right: 4.5%;
+  }
+
+  .contact-section {
+    padding-bottom: 10px;
+  }
+
+  .hero-section {
+    padding-top: 88px;
+  }
+
+  .hero-section .hero {
+    font-size: 1.95rem;
+  }
+
+  .cursor {
+    width: 18px;
+    height: 4px;
+  }
+
+  .heading h1,
+  .skills-heading h1,
+  .project-heading h1,
+  .Contact-heading h1 {
+    font-size: 1.65rem;
+  }
+
+  .coffee-body {
+    font-size: 0.75rem;
+  }
+
+  .boxes {
+    --size: 18px;
+    margin: 26px auto 75px auto;
+  }
+
+  .footer {
+    margin-left: 4.5%;
+    margin-right: 4.5%;
+    font-size: 0.7rem;
   }
 
   .loader-screen .loader {
@@ -305,18 +1016,15 @@ body {
 
 
 /* ==========================================================
-   PHONES IN LANDSCAPE (short screens)
+   5. LANDSCAPE PHONES (short viewports)
    ========================================================== */
 @media (max-height: 500px) and (orientation: landscape) {
   html {
-    scroll-padding-top: 56px;
+    scroll-padding-top: 60px;
   }
 
   .nav-bar {
-    flex-direction: row;
-    align-items: center;
-    padding: 10px 5%;
-    font-size: 14px;
+    padding: 10px 5.5%;
   }
 
   .hero-section {
@@ -326,7 +1034,7 @@ body {
 
 
 /* ==========================================================
-   VERY LARGE SCREENS (1800px+)
+   6. VERY LARGE SCREENS (1800px+)
    ========================================================== */
 @media (min-width: 1800px) {
   .hero-section .tagline,
@@ -337,23 +1045,22 @@ body {
 
 
 /* ==========================================================
-   PERFORMANCE
+   7. PERFORMANCE & ACCESSIBILITY
    ========================================================== */
-
-/* cube animation is paused by script.js while it is off-screen */
 .boxes.is-offscreen .box:nth-child(n) {
   animation-play-state: paused;
 }
 
-/* respect "reduce motion" system setting (also saves battery) */
 @media (prefers-reduced-motion: reduce) {
   .cursor,
+  .t-cursor,
+  .steam,
   .boxes .box:nth-child(n) {
-    animation: none;
+    animation: none !important;
   }
 
   .loader span {
-    animation: none;
-    transform: none;
+    animation: none !important;
+    transform: none !important;
   }
 }
