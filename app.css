@@ -421,6 +421,11 @@ body.loading {
   gap: 10px;
 }
 
+#email h3 a{
+  text-decoration: none;
+  color:#9BA3AE;
+}
+
 
 .footer {
   margin-top: auto;
