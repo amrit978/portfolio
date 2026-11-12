@@ -298,8 +298,10 @@ body.loading {
 }
 
 .projects-section .pro-col {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 50px;
+  width: 100%;
 }
 
 .button {
@@ -347,6 +349,87 @@ body.loading {
 }
 
 .button:active {
+  transform: translate(0);
+  box-shadow: none;
+}
+
+/* Collapsed peek with subtle blur fade above the 'more' button (desktop: 3 per row) */
+.projects-section:not(.is-expanded) .pro-col {
+  row-gap: 24px;
+}
+
+.projects-section:not(.is-expanded) .pro-col > div:nth-child(n + 4):nth-child(-n + 6) {
+  max-height: 98px;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.projects-section:not(.is-expanded) .pro-col > div:nth-child(n + 4):nth-child(-n + 6) .button {
+  filter: blur(2.5px);
+  opacity: 0.78;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.92) 8%, rgba(0, 0, 0, 0) 95%);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.92) 8%, rgba(0, 0, 0, 0) 95%);
+}
+
+.projects-section:not(.is-expanded) .pro-col > div:nth-child(n + 7) {
+  display: none;
+}
+
+.projects-section.is-expanded .pro-col > div:nth-child(n + 4) {
+  animation: projectReveal 0.35s ease forwards;
+}
+
+@keyframes projectReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.projects-more-wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.projects-section.is-expanded .projects-more-wrap {
+  margin-top: 28px;
+}
+
+.projects-more-btn {
+  --bg: #1A2028;
+  --hover-bg: #E0A458;
+  --hover-text: #9BA3AE;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--bg);
+  border: 1px solid rgba(155, 163, 174, 0.25);
+  border-radius: 8px;
+  padding: 0.7em 1.8em;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: 0.2s;
+}
+
+.projects-more-btn:hover,
+.projects-more-btn:focus-visible {
+  color: var(--hover-text);
+  transform: translate(0.25rem, -0.25rem);
+  background: var(--bg);
+  border-color: var(--bg);
+  box-shadow: -0.25rem 0.25rem var(--hover-bg);
+}
+
+.projects-more-btn:active {
   transform: translate(0);
   box-shadow: none;
 }

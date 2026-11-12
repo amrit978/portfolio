@@ -165,4 +165,39 @@ if (boxes && 'IntersectionObserver' in window) {
 }
 
 
+/* ---- projects show more / less toggle ---- */
+const projectsSection = document.getElementById('projects');
+const projectsMoreWrap = document.getElementById('projects-more-wrap');
+const projectsMoreBtn = document.getElementById('projects-more-btn');
+
+if (projectsSection && projectsMoreWrap && projectsMoreBtn) {
+  const projectCards = projectsSection.querySelectorAll('.pro-col > div');
+  const tabletMedia = window.matchMedia('(min-width: 769px) and (max-width: 1100px)');
+
+  function syncProjectsToggleVisibility() {
+    const visibleLimit = tabletMedia.matches ? 2 : 3;
+    const hasExtra = projectCards.length > visibleLimit;
+    projectsMoreWrap.style.display = hasExtra ? '' : 'none';
+    if (!hasExtra) {
+      projectsSection.classList.remove('is-expanded');
+      projectsMoreBtn.setAttribute('aria-expanded', 'false');
+      projectsMoreBtn.textContent = 'more';
+    }
+  }
+
+  projectsMoreBtn.addEventListener('click', () => {
+    const expanded = projectsSection.classList.toggle('is-expanded');
+    projectsMoreBtn.setAttribute('aria-expanded', String(expanded));
+    projectsMoreBtn.textContent = expanded ? 'less' : 'more';
+    updateActiveLink();
+  });
+
+  if (tabletMedia.addEventListener) {
+    tabletMedia.addEventListener('change', syncProjectsToggleVisibility);
+  }
+  window.addEventListener('resize', syncProjectsToggleVisibility);
+  syncProjectsToggleVisibility();
+}
+
+
 
