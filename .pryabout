@@ -1,0 +1,3 @@
+# .pryabout - what this project is. Shown on the project page (local and deployed). Edit here or on the web.
+description: A personal portfolio website with a terminal-inspired look: dark navy background, amber accent, monospace headings. Built with plain HTML, CSS and JavaScript, with no frameworks and no build step.
+tech: css

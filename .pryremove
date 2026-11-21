@@ -1,0 +1,13 @@
+# .pryremove - things pry will never save (same idea as .gitignore, but yours).
+# Patterns: *.log   build/   /root-only   **/cache   !keep-me.log
+
+# OS & editor noise
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+
+# Secrets & logs (remove these lines if you want them backed up too)
+.env
+.env.*
+*.log
