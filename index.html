@@ -215,58 +215,71 @@
             <div class="project-heading">
                 <h1>~/projects</h1>
             </div>
-            <div class="pro-col">
-                <div>
-                    <a class="button projects-name" href="https://github.com/amrit978/pomodoro-timer">
-                        <p>pomodoro\</p>
-                        <h3>Pomodoro Timer</h3>
-                        <p class="pro-desc">
+
+            <div class="projects-showcase">
+                <!-- Left Column: Typographic directory list (inspired by skills section) -->
+                <div class="projects-nav" role="tablist" aria-label="Projects list">
+                    <button type="button" class="project-nav-item is-active" role="tab" aria-selected="true" data-index="0" id="p-tab-0" aria-controls="p-panel">
+                        <span class="p-num">01/</span>
+                        <span class="p-name">Pomodoro Timer</span>
+                        <span class="p-arrow">→</span>
+                    </button>
+                    <button type="button" class="project-nav-item" role="tab" aria-selected="false" data-index="1" id="p-tab-1" aria-controls="p-panel">
+                        <span class="p-num">02/</span>
+                        <span class="p-name">Wishfor</span>
+                        <span class="p-arrow">→</span>
+                    </button>
+                    <button type="button" class="project-nav-item" role="tab" aria-selected="false" data-index="2" id="p-tab-2" aria-controls="p-panel">
+                        <span class="p-num">03/</span>
+                        <span class="p-name">Tip Calculator</span>
+                        <span class="p-arrow">→</span>
+                    </button>
+                    <button type="button" class="project-nav-item" role="tab" aria-selected="false" data-index="3" id="p-tab-3" aria-controls="p-panel">
+                        <span class="p-num">04/</span>
+                        <span class="p-name">Expense Tracker</span>
+                        <span class="p-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- Right Column: Active Project Details & Live Preview Frame -->
+                <div class="project-display" id="p-panel" role="tabpanel" aria-labelledby="p-tab-0">
+                    <div class="project-info">
+                        <div class="project-meta">
+                            <span class="p-counter" id="proj-counter">01 / 04 · pomodoro/</span>
+                        </div>
+                        <h2 class="project-title" id="proj-title">Pomodoro Timer</h2>
+                        <p class="project-tagline" id="proj-tagline">a focus timer that lives on your desktop.</p>
+                        <p class="project-description" id="proj-desc">
                             A simple desktop Pomodoro timer built with C++ and Qt6 Widgets.
                         </p>
-                        <p class="pro-tech">C++17 · Qt6 (Widgets) · CMake</p>
-                    </a>
+                        <div class="project-tech" id="proj-tech">
+                            <span class="tech-pill">C++17</span>
+                            <span class="tech-pill">Qt6 (Widgets)</span>
+                            <span class="tech-pill">CMake</span>
+                        </div>
+                        <div class="project-actions">
+                            <a class="project-github-btn" id="proj-link" href="https://github.com/amrit978/pomodoro-timer" target="_blank" rel="noopener noreferrer">
+                                <span>view on github</span>
+                                <span class="btn-arrow">→</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Visual Preview Frame -->
+                    <div class="project-preview-window">
+                        <div class="preview-header">
+                            <div class="window-dots">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <span class="window-title" id="proj-window-title">pomodoro-timer.app</span>
+                        </div>
+                        <div class="preview-image-wrap">
+                            <img src="img/pomodoro-timer_preview.png" id="proj-image" alt="Pomodoro Timer preview" class="preview-image">
+                        </div>
+                    </div>
                 </div>
-
-                <div>
-                    <a class="button projects-name" href="https://github.com/amrit978/Wishfor">
-                        <p>wishfor\</p>
-                        <h3>Wishfor</h3>
-                        <p class="pro-desc">
-                            A quiet room where everyone wears a mask. Share whatever weighs on you.
-                        </p>
-                        <p class="pro-tech">Next.js | TypeScript 5 | Tailwind CSS + PostCSS | Web Audio API | Node.js crypto</p>
-                    </a>
-                </div>
-
-
-                <div>
-                    <a class="button projects-name" href="https://github.com/amrit978/Tip-Calculator">
-                        <p>tipcalculator\</p>
-                        <h3>Tip Calculator</h3>
-                        <p class="pro-desc">
-                            A simple tip calculator with real-time bill splitting, tip calculation, and dark mode.
-                        </p>
-                        <p class="pro-tech">Html · CSS · JavaScript</p>
-                    </a>
-                </div>
-
-                <div>
-                    <a class="button projects-name" href="https://github.com/amrit978/Expense-Tracker">
-                        <p>expensetracker\</p>
-                        <h3>Expense-Tracker</h3>
-                        <p class="pro-desc">
-                            A simple expense tracker built with Python (Flask) and SQLite to record and review personal.
-                        </p>
-                        <p class="pro-tech">Python, Flask · SQLite (stdlib) · Jinja2, HTML, CSS</p>
-                    </a>
-                </div>
-
-
-            </div>
-            <div class="projects-more-wrap" id="projects-more-wrap">
-                <button type="button" class="projects-more-btn" id="projects-more-btn" aria-expanded="false">
-                    more
-                </button>
             </div>
         </div>
 
@@ -276,16 +289,18 @@
                 <div class="Contact-heading">
                     <h1>~/contact</h1>
                 </div>
-                <p>Let's build something together</p>
+                <p class="contact-tagline">Let's build something together</p>
+                <div class="contact-quote-rotator" id="contact-quote-rotator" aria-live="polite">
+                    <span class="quote-prompt">&gt;</span>
+                    <span class="quote-text" id="contact-quote-text">"shall we play a game?" - WarGames, 1983.</span>
+                </div>
                 <div class="mid">
-                    <span class="con get">
+                    <a href="mailto:itsmeamrit@proton.me" class="con get">
                         <h3>get in touch</h3>
-                    </span>
-                    <span class="con resume">
-                        <a href="https://drive.google.com/file/d/1007mvnddDcqI7OzofsorJIh7XEGSXv00/view?usp=sharing">
-                            <img src="img/7795739 1.svg"><span>resume</span>
-                        </a>
-                    </span>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1007mvnddDcqI7OzofsorJIh7XEGSXv00/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="con resume">
+                        <img src="img/7795739 1.svg" alt="Resume icon"><span>resume</span>
+                    </a>
                 </div>
                 <div id="email">
                     <h3><a href="mailto:itsmeamrit@proton.me">itsmeamrit@proton.me</a></h3>

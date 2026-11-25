@@ -165,38 +165,161 @@ if (boxes && 'IntersectionObserver' in window) {
 }
 
 
-/* ---- projects show more / less toggle ---- */
-const projectsSection = document.getElementById('projects');
-const projectsMoreWrap = document.getElementById('projects-more-wrap');
-const projectsMoreBtn = document.getElementById('projects-more-btn');
+/* ---- interactive projects showcase switcher ---- */
+const projectNavItems = document.querySelectorAll('.project-nav-item');
+const projectDisplay = document.getElementById('p-panel');
+const projCounter = document.getElementById('proj-counter');
+const projTitle = document.getElementById('proj-title');
+const projTagline = document.getElementById('proj-tagline');
+const projDesc = document.getElementById('proj-desc');
+const projTech = document.getElementById('proj-tech');
+const projLink = document.getElementById('proj-link');
+const projImage = document.getElementById('proj-image');
+const projWindowTitle = document.getElementById('proj-window-title');
 
-if (projectsSection && projectsMoreWrap && projectsMoreBtn) {
-  const projectCards = projectsSection.querySelectorAll('.pro-col > div');
-  const tabletMedia = window.matchMedia('(min-width: 769px) and (max-width: 1100px)');
-
-  function syncProjectsToggleVisibility() {
-    const visibleLimit = tabletMedia.matches ? 2 : 3;
-    const hasExtra = projectCards.length > visibleLimit;
-    projectsMoreWrap.style.display = hasExtra ? '' : 'none';
-    if (!hasExtra) {
-      projectsSection.classList.remove('is-expanded');
-      projectsMoreBtn.setAttribute('aria-expanded', 'false');
-      projectsMoreBtn.textContent = 'more';
+if (projectNavItems.length && projectDisplay) {
+  const projectsData = [
+    {
+      num: '01 / 04 · pomodoro/',
+      title: 'Pomodoro Timer',
+      tagline: 'a focus timer that lives on your desktop.',
+      desc: 'A simple desktop Pomodoro timer built with C++ and Qt6 Widgets to boost focus and track productivity intervals.',
+      tech: ['C++17', 'Qt6 (Widgets)', 'CMake'],
+      link: 'https://github.com/amrit978/pomodoro-timer',
+      img: 'img/pomodoro-timer_preview.png',
+      windowTitle: 'pomodoro-timer.app'
+    },
+    {
+      num: '02 / 04 · wishfor/',
+      title: 'Wishfor',
+      tagline: 'a quiet room where everyone wears a mask.',
+      desc: 'An anonymous peer sanctuary where anyone can share whatever weighs on them without judgment, tracking, or identity exposure.',
+      tech: ['Next.js 14', 'TypeScript 5', 'Tailwind CSS', 'Web Audio API', 'Node.js crypto'],
+      link: 'https://github.com/amrit978/Wishfor',
+      img: 'img/Wishfor_preview.png',
+      windowTitle: 'wishfor.sanctuary'
+    },
+    {
+      num: '03 / 04 · tipcalculator/',
+      title: 'Tip Calculator',
+      tagline: 'real-time bill splitting with dark mode.',
+      desc: 'A sleek single-page tip calculator featuring instant real-time bill calculations, custom tipping percentages, and responsive dark mode.',
+      tech: ['HTML5', 'CSS3', 'JavaScript'],
+      link: 'https://github.com/amrit978/Tip-Calculator',
+      img: 'img/tipcalculator_preview.png',
+      windowTitle: 'tip-calculator.web'
+    },
+    {
+      num: '04 / 04 · expensetracker/',
+      title: 'Expense Tracker',
+      tagline: 'know where your money goes.',
+      desc: 'A personal finance web app to record, categorize, and review expenses with date filters and visual budget breakdowns.',
+      tech: ['Python', 'Flask', 'SQLite', 'Jinja2', 'HTML5', 'CSS3'],
+      link: 'https://github.com/amrit978/Expense-Tracker',
+      img: 'img/expensetracker_preview.png',
+      windowTitle: 'expense-tracker.py'
     }
+  ];
+
+  let activeIndex = 0;
+  let isSwitching = false;
+
+  function setProject(index) {
+    if (index === activeIndex || isSwitching) return;
+    const data = projectsData[index];
+    if (!data) return;
+
+    isSwitching = true;
+    activeIndex = index;
+
+    // Update nav active states
+    projectNavItems.forEach((btn, i) => {
+      const isActive = i === index;
+      btn.classList.toggle('is-active', isActive);
+      btn.setAttribute('aria-selected', String(isActive));
+    });
+
+    // Cross-fade animation
+    projectDisplay.classList.add('is-switching');
+
+    setTimeout(() => {
+      projCounter.textContent = data.num;
+      projTitle.textContent = data.title;
+      projTagline.textContent = data.tagline;
+      projDesc.textContent = data.desc;
+      projLink.href = data.link;
+      projWindowTitle.textContent = data.windowTitle;
+      projImage.src = data.img;
+      projImage.alt = `${data.title} preview`;
+
+      // Render tech pills
+      projTech.innerHTML = '';
+      data.tech.forEach((t) => {
+        const pill = document.createElement('span');
+        pill.className = 'tech-pill';
+        pill.textContent = t;
+        projTech.appendChild(pill);
+      });
+
+      projectDisplay.classList.remove('is-switching');
+      isSwitching = false;
+    }, 180);
   }
 
-  projectsMoreBtn.addEventListener('click', () => {
-    const expanded = projectsSection.classList.toggle('is-expanded');
-    projectsMoreBtn.setAttribute('aria-expanded', String(expanded));
-    projectsMoreBtn.textContent = expanded ? 'less' : 'more';
-    updateActiveLink();
+  projectNavItems.forEach((btn, idx) => {
+    btn.addEventListener('click', () => setProject(idx));
+    btn.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+        e.preventDefault();
+        const next = (idx + 1) % projectNavItems.length;
+        projectNavItems[next].focus();
+        setProject(next);
+      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const prev = (idx - 1 + projectNavItems.length) % projectNavItems.length;
+        projectNavItems[prev].focus();
+        setProject(prev);
+      }
+    });
   });
+}
 
-  if (tabletMedia.addEventListener) {
-    tabletMedia.addEventListener('change', syncProjectsToggleVisibility);
+
+/* ---- rotating quotes below contact tagline ---- */
+const contactQuoteText = document.getElementById('contact-quote-text');
+if (contactQuoteText) {
+  const contactQuotes = [
+    '"shall we play a game?" - WarGames, 1983.',
+    '"welcome to the real world." - The Matrix, 1999',
+    '"may the force be with you." - Star Wars, 1977',
+    '"sic parvis magna." - Uncharted, 2007',
+    '"nothing is true, everything is permitted." - Assassin\'s Creed, 2007',
+    '"praise the sun!" - Dark Souls, 2011',
+    '"stay awhile and listen." - Diablo, 1996',
+    '"hey, you. you\'re finally awake." - Skyrim, 2011'
+  ];
+
+  let currentQuoteIndex = 0;
+  const FADE_OUT_MS = 450;
+  const DISPLAY_MS = 3400;
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function cycleQuote() {
+    if (prefersReduced.matches) {
+      currentQuoteIndex = (currentQuoteIndex + 1) % contactQuotes.length;
+      contactQuoteText.textContent = contactQuotes[currentQuoteIndex];
+      return;
+    }
+
+    contactQuoteText.classList.add('is-fading');
+    setTimeout(() => {
+      currentQuoteIndex = (currentQuoteIndex + 1) % contactQuotes.length;
+      contactQuoteText.textContent = contactQuotes[currentQuoteIndex];
+      contactQuoteText.classList.remove('is-fading');
+    }, FADE_OUT_MS);
   }
-  window.addEventListener('resize', syncProjectsToggleVisibility);
-  syncProjectsToggleVisibility();
+
+  setInterval(cycleQuote, DISPLAY_MS + FADE_OUT_MS);
 }
 
 

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tip Calculator</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f4f1ea;
+        --surface: #fffcf7;
+        --ink: #1c1917;
+        --muted: #78716c;
+        --line: #e7e0d6;
+        --accent: #0f766e;
+        --accent-ink: #f0fdfa;
+        --shadow: 0 18px 40px rgba(28, 25, 23, 0.08);
+      }
+
+      html[data-theme="dark"] {
+        color-scheme: dark;
+        --bg: #121417;
+        --surface: #1b1f24;
+        --ink: #f5f2ed;
+        --muted: #a8a29e;
+        --line: #2a3038;
+        --accent: #2dd4bf;
+        --accent-ink: #042f2e;
+        --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+        display: grid;
+        place-items: center;
+        padding: 24px;
+      }
+
+      .card {
+        width: min(440px, 100%);
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+        padding: 28px;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 1.45rem;
+      }
+
+      .sub {
+        margin: 6px 0 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .theme-toggle {
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--ink);
+        border-radius: 999px;
+        padding: 8px 12px;
+        cursor: pointer;
+        font: inherit;
+        white-space: nowrap;
+      }
+
+      label {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .field {
+        margin-bottom: 18px;
+      }
+
+      input[type="number"] {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: transparent;
+        color: inherit;
+        font: inherit;
+      }
+
+      .presets {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+
+      .presets button {
+        border: 1px solid var(--line);
+        background: transparent;
+        color: inherit;
+        border-radius: 999px;
+        padding: 8px 12px;
+        cursor: pointer;
+        font: inherit;
+      }
+
+      .presets button.active,
+      .theme-toggle:hover,
+      .presets button:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      input[type="range"] {
+        width: 100%;
+        accent-color: var(--accent);
+      }
+
+      .tip-readout {
+        display: flex;
+        justify-content: space-between;
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin-top: 6px;
+      }
+
+      .results {
+        margin-top: 8px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        display: grid;
+        gap: 10px;
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .row.total {
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+
+      .money {
+        font-variant-numeric: tabular-nums;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <header>
+        <div>
+          <h1>Tip calculator</h1>
+          <p class="sub">Bill, tip, and split update as you type.</p>
+        </div>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+          Dark mode
+        </button>
+      </header>
+
+      <form id="calcForm" novalidate>
+        <div class="field">
+          <label for="bill">Bill amount</label>
+          <input id="bill" name="bill" type="number" min="0" step="0.01" value="50" />
+        </div>
+
+        <div class="field">
+          <label for="tip">Tip percent</label>
+          <div class="presets" id="presets">
+            <button type="button" data-tip="10">10%</button>
+            <button type="button" data-tip="15">15%</button>
+            <button type="button" data-tip="18">18%</button>
+            <button type="button" data-tip="20">20%</button>
+          </div>
+          <input id="tip" name="tip" type="range" min="0" max="40" value="18" />
+          <div class="tip-readout">
+            <span>0%</span>
+            <span id="tipLabel">18%</span>
+            <span>40%</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="people">Split between</label>
+          <input id="people" name="people" type="number" min="1" step="1" value="1" />
+        </div>
+      </form>
+
+      <section class="results" aria-live="polite">
+        <div class="row">
+          <span>Tip</span>
+          <span class="money" id="tipAmount">$0.00</span>
+        </div>
+        <div class="row total">
+          <span>Total</span>
+          <span class="money" id="total">$0.00</span>
+        </div>
+        <div class="row">
+          <span>Per person</span>
+          <span class="money" id="perPerson">$0.00</span>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const billInput = document.getElementById("bill");
+      const tipInput = document.getElementById("tip");
+      const peopleInput = document.getElementById("people");
+      const tipLabel = document.getElementById("tipLabel");
+      const tipAmountEl = document.getElementById("tipAmount");
+      const totalEl = document.getElementById("total");
+      const perPersonEl = document.getElementById("perPerson");
+      const presets = document.getElementById("presets");
+      const themeToggle = document.getElementById("themeToggle");
+
+      const money = new Intl.NumberFormat(undefined, {
+        style: "currency",
+        currency: "USD",
+      });
+
+      function parseAmount(value, fallback) {
+        const n = Number(value);
+        return Number.isFinite(n) && n >= 0 ? n : fallback;
+      }
+
+      function updateTotals() {
+        const bill = parseAmount(billInput.value, 0);
+        const tipPercent = parseAmount(tipInput.value, 0);
+        const people = Math.max(1, Math.floor(parseAmount(peopleInput.value, 1)));
+
+        const tip = bill * (tipPercent / 100);
+        const total = bill + tip;
+        const perPerson = total / people;
+
+        tipLabel.textContent = `${tipPercent}%`;
+        tipAmountEl.textContent = money.format(tip);
+        totalEl.textContent = money.format(total);
+        perPersonEl.textContent = money.format(perPerson);
+
+        for (const button of presets.querySelectorAll("button")) {
+          button.classList.toggle("active", Number(button.dataset.tip) === tipPercent);
+        }
+      }
+
+      function setTheme(theme) {
+        const next = theme === "dark" ? "dark" : "light";
+        document.documentElement.dataset.theme = next;
+        localStorage.setItem("tip-calc-theme", next);
+        themeToggle.setAttribute("aria-pressed", String(next === "dark"));
+        themeToggle.textContent = next === "dark" ? "Light mode" : "Dark mode";
+      }
+
+      billInput.addEventListener("input", updateTotals);
+      tipInput.addEventListener("input", updateTotals);
+      peopleInput.addEventListener("input", updateTotals);
+
+      presets.addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-tip]");
+        if (!button) return;
+        tipInput.value = button.dataset.tip;
+        updateTotals();
+      });
+
+      themeToggle.addEventListener("click", () => {
+        const current = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+        setTheme(current === "dark" ? "light" : "dark");
+      });
+
+      const savedTheme = localStorage.getItem("tip-calc-theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      setTheme(savedTheme || (prefersDark ? "dark" : "light"));
+      updateTotals();
+    </script>
+  </body>
+</html>
