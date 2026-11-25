@@ -40,6 +40,10 @@
         rel="stylesheet">
     <link rel="stylesheet" href="app.css">
     <link rel="stylesheet" href="responsive.css">
+    <link rel="preload" as="image" href="img/pomodoro-timer_preview.webp" type="image/webp">
+    <link rel="preload" as="image" href="img/wishfor_preview.webp" type="image/webp">
+    <link rel="preload" as="image" href="img/tipcalculator_preview.webp" type="image/webp">
+    <link rel="preload" as="image" href="img/expensetracker_preview.webp" type="image/webp">
 </head>
 
 
@@ -275,8 +279,23 @@
                             </div>
                             <span class="window-title" id="proj-window-title">pomodoro-timer.app</span>
                         </div>
-                        <div class="preview-image-wrap">
-                            <img src="img/pomodoro-timer_preview.png" id="proj-image" alt="Pomodoro Timer preview" class="preview-image">
+                        <div class="preview-image-wrap" id="proj-image-container">
+                            <picture class="preview-pic is-active" data-index="0">
+                                <source srcset="img/pomodoro-timer_preview.webp" type="image/webp">
+                                <img src="img/pomodoro-timer_preview.png" alt="Pomodoro Timer preview" class="preview-image" loading="eager" decoding="async">
+                            </picture>
+                            <picture class="preview-pic" data-index="1">
+                                <source srcset="img/wishfor_preview.webp" type="image/webp">
+                                <img src="img/wishfor_preview.png" alt="Wishfor preview" class="preview-image" loading="eager" decoding="async">
+                            </picture>
+                            <picture class="preview-pic" data-index="2">
+                                <source srcset="img/tipcalculator_preview.webp" type="image/webp">
+                                <img src="img/tipcalculator_preview.png" alt="Tip Calculator preview" class="preview-image" loading="eager" decoding="async">
+                            </picture>
+                            <picture class="preview-pic" data-index="3">
+                                <source srcset="img/expensetracker_preview.webp" type="image/webp">
+                                <img src="img/expensetracker_preview.png" alt="Expense Tracker preview" class="preview-image" loading="eager" decoding="async">
+                            </picture>
                         </div>
                     </div>
                 </div>

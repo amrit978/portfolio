@@ -174,8 +174,8 @@ const projTagline = document.getElementById('proj-tagline');
 const projDesc = document.getElementById('proj-desc');
 const projTech = document.getElementById('proj-tech');
 const projLink = document.getElementById('proj-link');
-const projImage = document.getElementById('proj-image');
 const projWindowTitle = document.getElementById('proj-window-title');
+const previewPics = document.querySelectorAll('.preview-pic');
 
 if (projectNavItems.length && projectDisplay) {
   const projectsData = [
@@ -186,7 +186,6 @@ if (projectNavItems.length && projectDisplay) {
       desc: 'A simple desktop Pomodoro timer built with C++ and Qt6 Widgets to boost focus and track productivity intervals.',
       tech: ['C++17', 'Qt6 (Widgets)', 'CMake'],
       link: 'https://github.com/amrit978/pomodoro-timer',
-      img: 'img/pomodoro-timer_preview.png',
       windowTitle: 'pomodoro-timer.app'
     },
     {
@@ -196,7 +195,6 @@ if (projectNavItems.length && projectDisplay) {
       desc: 'An anonymous peer sanctuary where anyone can share whatever weighs on them without judgment, tracking, or identity exposure.',
       tech: ['Next.js 14', 'TypeScript 5', 'Tailwind CSS', 'Web Audio API', 'Node.js crypto'],
       link: 'https://github.com/amrit978/Wishfor',
-      img: 'img/Wishfor_preview.png',
       windowTitle: 'wishfor.sanctuary'
     },
     {
@@ -206,7 +204,6 @@ if (projectNavItems.length && projectDisplay) {
       desc: 'A sleek single-page tip calculator featuring instant real-time bill calculations, custom tipping percentages, and responsive dark mode.',
       tech: ['HTML5', 'CSS3', 'JavaScript'],
       link: 'https://github.com/amrit978/Tip-Calculator',
-      img: 'img/tipcalculator_preview.png',
       windowTitle: 'tip-calculator.web'
     },
     {
@@ -216,54 +213,47 @@ if (projectNavItems.length && projectDisplay) {
       desc: 'A personal finance web app to record, categorize, and review expenses with date filters and visual budget breakdowns.',
       tech: ['Python', 'Flask', 'SQLite', 'Jinja2', 'HTML5', 'CSS3'],
       link: 'https://github.com/amrit978/Expense-Tracker',
-      img: 'img/expensetracker_preview.png',
       windowTitle: 'expense-tracker.py'
     }
   ];
 
   let activeIndex = 0;
-  let isSwitching = false;
 
   function setProject(index) {
-    if (index === activeIndex || isSwitching) return;
+    if (index === activeIndex) return;
     const data = projectsData[index];
     if (!data) return;
 
-    isSwitching = true;
     activeIndex = index;
 
-    // Update nav active states
+    // 1. Instant nav active state
     projectNavItems.forEach((btn, i) => {
       const isActive = i === index;
       btn.classList.toggle('is-active', isActive);
       btn.setAttribute('aria-selected', String(isActive));
     });
 
-    // Cross-fade animation
-    projectDisplay.classList.add('is-switching');
+    // 2. Instant image switch (preloaded, 0ms latency)
+    previewPics.forEach((pic, i) => {
+      pic.classList.toggle('is-active', i === index);
+    });
 
-    setTimeout(() => {
-      projCounter.textContent = data.num;
-      projTitle.textContent = data.title;
-      projTagline.textContent = data.tagline;
-      projDesc.textContent = data.desc;
-      projLink.href = data.link;
-      projWindowTitle.textContent = data.windowTitle;
-      projImage.src = data.img;
-      projImage.alt = `${data.title} preview`;
+    // 3. Instant data update
+    projCounter.textContent = data.num;
+    projTitle.textContent = data.title;
+    projTagline.textContent = data.tagline;
+    projDesc.textContent = data.desc;
+    projLink.href = data.link;
+    projWindowTitle.textContent = data.windowTitle;
 
-      // Render tech pills
-      projTech.innerHTML = '';
-      data.tech.forEach((t) => {
-        const pill = document.createElement('span');
-        pill.className = 'tech-pill';
-        pill.textContent = t;
-        projTech.appendChild(pill);
-      });
-
-      projectDisplay.classList.remove('is-switching');
-      isSwitching = false;
-    }, 180);
+    // Render tech pills
+    projTech.innerHTML = '';
+    data.tech.forEach((t) => {
+      const pill = document.createElement('span');
+      pill.className = 'tech-pill';
+      pill.textContent = t;
+      projTech.appendChild(pill);
+    });
   }
 
   projectNavItems.forEach((btn, idx) => {

@@ -1095,6 +1095,7 @@ body {
 
   .project-display,
   .project-nav-item,
+  .preview-pic,
   .preview-image,
   .contact-quote-rotator .quote-text {
     transition: none !important;

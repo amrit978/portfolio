@@ -535,13 +535,27 @@ body.loading {
 }
 
 .preview-image-wrap {
+  position: relative;
   width: 100%;
   height: 270px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
   background: #0E131A;
+}
+
+.preview-pic {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity;
+}
+
+.preview-pic.is-active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .preview-image {
@@ -550,7 +564,6 @@ body.loading {
   object-fit: cover;
   object-position: center;
   display: block;
-  transition: opacity 0.22s ease;
 }
 
 
