@@ -1,94 +1,109 @@
 # Amrit's Portfolio
 
-A personal portfolio website with a terminal-inspired look: dark navy background, amber accent, monospace headings. Built with plain HTML, CSS and JavaScript, with no frameworks and no build step.
+A personal developer portfolio built with a terminal-inspired dark aesthetic (`#1A2028` background, `#E0A458` amber accents, `#9BA3AE` muted text). Built with vanilla HTML5, CSS3, and JavaScript — no frameworks, no external runtime dependencies, and no build step required.
 
-**Live site:** https://amrit-kumar.vercel.app/
+**Live Site:** [amrit-theta.vercel.app](https://amrit-theta.vercel.app/)
+
+---
 
 ## Sections
 
-- **Hero:** introduction with a blinking cursor and a terminal-style status line
-- **About:** a short bio
-- **Skills:** grouped like an `ls` listing (languages, web, design)
-- **Projects:** Pomodoro Timer, Tip Calculator and Expense Tracker, each linking to its GitHub repository
-- **Contact:** email, resume, social links and an animated 3D cube
-- **Footer:** copyright line with the year filled in by JavaScript
+- **Hero (`~/`)**: Split two-line typographic introduction (`hi,` / `i'm amrit _`) with a blinking cursor and an interactive terminal coffee animation (`sudo wake-up --reason=coffee`).
+- **About (`~/about.md`)**: Background as an engineering student, technical society leadership (devsoc), and systems development focus.
+- **Skills (`~/skills`)**: Unboxed directory-style listing organized into `languages/`, `web/`, and `design/`.
+- **Projects (`~/projects`)**: Split interactive showcase. The left column provides a directory navigation list (`01/`, `02/`, `03/`, `04/`), while the right column renders a live preview mockup window with real screenshots, taglines, tech pills, and GitHub repository links.
+- **Contact (`~/contact`)**: Bold white tagline (*"Let's build something together"*), an infinite quotes rotator cycling through classic movie and gaming lines, direct contact action buttons (`get in touch` and `resume`), verified social links, and an animated 3D isometric cube model.
+- **Footer**: Monospace terminal exit status (`amrit@portfolio:~$ exit 0`) with dynamic year stamping.
 
-## Features
+---
 
-- Responsive layout for phones, tablets and desktops (media queries)
-- Smooth scrolling, and the nav link for the section on screen is highlighted
-- Page loading animation
-- Hover effects on project cards and social buttons
-- SEO basics: meta description, Open Graph tags, favicon, `robots.txt` and `sitemap.xml`
+## Featured Projects
 
-## Tech
+| Project | Tech Stack | Description |
+| :--- | :--- | :--- |
+| [**Pomodoro Timer**](https://github.com/amrit978/pomodoro-timer) | C++17 · Qt6 Widgets · CMake | Desktop productivity timer with session intervals, custom break limits, and native dark UI. |
+| [**Wishfor**](https://github.com/amrit978/Wishfor) | Next.js 14 · TypeScript 5 · Tailwind CSS · Web Audio API · Node.js crypto | Anonymous peer sanctuary web app with zero identity exposure or tracking. |
+| [**Tip Calculator**](https://github.com/amrit978/Tip-Calculator) | HTML5 · CSS3 · JavaScript | Real-time bill splitting calculator with custom tip percentage steppers and dark mode toggle. |
+| [**Expense Tracker**](https://github.com/amrit978/Expense-Tracker) | Python · Flask · SQLite · Jinja2 · HTML5 · CSS3 | Personal finance tracking application with category breakdowns, running totals, and date filtering. |
 
-- HTML5, CSS3, vanilla JavaScript
-- Fonts: [Space Grotesk](https://fonts.google.com/specimen/Space+Grotesk) and [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono) (Google Fonts)
-- Hosting: [Vercel](https://vercel.com)
+---
 
-## Project structure
+## Architecture & Performance
 
-```
+- **Zero-Latency Showcase**: Project preview images are pre-rendered into stacked DOM layers and preloaded in `<head>`. Switching projects toggles GPU-accelerated opacity classes with **0ms delay**.
+- **Modern Image Formats**: Preview screenshots are compressed to high-fidelity **WebP** files (~92 KB total across all 4 projects) with automatic PNG fallbacks.
+- **Pure CSS Layout & Responsiveness**: Separate `app.css` (desktop architecture) and `responsive.css` (tablets, mobile reflow, animated hamburger navigation drawer, and touch targets).
+- **Reduced Motion Support**: Respects `@media (prefers-reduced-motion: reduce)` by disabling non-essential transitions and keeping terminal content accessible.
+- **SEO Ready**: Canonical URL, Open Graph metadata, semantic HTML, `sitemap.xml`, and `robots.txt`.
+
+---
+
+## Project Structure
+
+```text
 .
-├── index.html
-├── app.css
-├── script.js
-├── favicon.svg
-├── robots.txt
-├── sitemap.xml
-├── img/
-│   ├── og-image.png      # link preview image (1200x630)
-│   └── ...               # icons and illustrations
+├── index.html            # Main markup with semantic sections & preloaded assets
+├── app.css               # Core styling, layout, typography, and animations
+├── responsive.css        # Responsive breakpoints (desktop, tablet, mobile)
+├── script.js             # Showcase switching, quote rotator, loader & nav-spy
+├── Favicon.svg           # Site favicon
+├── robots.txt            # Search crawler directives
+├── sitemap.xml           # Search engine sitemap
+├── img/                  # Previews, screenshots, and vector graphics
+│   ├── pomodoro-timer_preview.webp
+│   ├── wishfor_preview.webp
+│   ├── tipcalculator_preview.webp
+│   ├── expensetracker_preview.webp
+│   ├── og-image.png
+│   └── ...
 └── README.md
 ```
 
-## Run locally
+---
 
-No installation is needed.
+## Run Locally
 
-1. Clone the repository:
+No package installations or build steps are required.
+
+1. **Clone the repository:**
    ```bash
-   git clone https://github.com/amrit978/portfolio.git
-   cd YOUR-REPO
+   git clone https://github.com/amrit978/Portfolio-main.git
+   cd Portfolio-main
    ```
-2. Open `index.html` in a browser.
 
-For live reload while editing, use the **Live Server** extension in VS Code, or run:
-```bash
-npx serve
-```
+2. **Open in browser:**
+   Double-click `index.html`, or serve using any static file server:
+   ```bash
+   # Using npx serve
+   npx serve .
 
-## Deploy
+   # Or using Python
+   python -m http.server 3000
+   ```
 
-The site is deployed on Vercel.
+---
 
-1. Push the project to GitHub, with `index.html` at the top level of the repository.
-2. Import the repository in Vercel.
-3. Set **Framework Preset** to `Other` and leave the build command and output directory empty.
-4. Deploy. Every push to the main branch redeploys automatically.
+## Deployment
 
-After you add a custom domain, update the URLs in `index.html` (`canonical`, `og:url`, `og:image`), `robots.txt` and `sitemap.xml`.
+The website deploys directly to [Vercel](https://vercel.com) (or any static hosting service like GitHub Pages, Netlify, or Cloudflare Pages):
 
-## Customize
+1. Push your repository to GitHub.
+2. Import the project into Vercel.
+3. Select **Framework Preset** as `Other`.
+4. Keep the build command and output directory empty.
+5. Deploy. Every push to `main` triggers an automatic deployment.
 
-- **Colors:** background `#1A2028`, text `#EDEDED`, muted text `#9BA3AE`, accent `#E0A458`
-- **Add a project:** copy one project block inside the `pro-col` container in `index.html` and change the title, description, tech line and link
-- **Update the resume:** change the link in the contact section
-
-## Credits
-
-- Fonts: Space Grotesk and JetBrains Mono, both under the SIL Open Font License
-- Social icons: [Font Awesome Free](https://fontawesome.com) (CC BY 4.0)
-- Button style inspired by the Gumroad website
-- Some animated UI elements (hover buttons, loader, 3D cube) are adapted from community components. Add the original authors and links here.
-
-## License
-
-The code is available under the MIT License. The text, photos and resume are not covered by it, and all rights to them are reserved.
+---
 
 ## Contact
 
-- Email: itsmeamrit@proton.me
-- GitHub: [@amrit978](https://github.com/amrit978)
-- LinkedIn: [Amrit Kumar](https://www.linkedin.com/in/amrit-kumar-319780329/)
+- **Email:** [itsmeamrit@proton.me](mailto:itsmeamrit@proton.me)
+- **GitHub:** [@amrit978](https://github.com/amrit978)
+- **LinkedIn:** [Amrit Kumar](https://www.linkedin.com/in/amrit-kumar-319780329/)
+- **Instagram:** [@amrit_kuma_r](https://www.instagram.com/amrit_kuma_r)
+
+---
+
+## License
+
+The code is open source and available under the [MIT License](LICENSE). Personal project texts, resume, and images remain copyrighted by Amrit Kumar.
