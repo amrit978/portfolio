@@ -1,19 +1,29 @@
 # Amrit's Portfolio
 
-A personal developer portfolio built with a terminal-inspired dark aesthetic (`#1A2028` background, `#E0A458` amber accents, `#9BA3AE` muted text). Built with vanilla HTML5, CSS3, and JavaScript — no frameworks, no external runtime dependencies, and no build step required.
+Terminal-inspired personal developer portfolio. Built with vanilla HTML, CSS, and JavaScript with no frameworks or build steps.
 
 **Live Site:** [amrit-theta.vercel.app](https://amrit-theta.vercel.app/)
 
 ---
 
+## Preview
+
+### Home
+![Portfolio Home Preview](img/home_preview.png)
+
+### Projects Showcase
+![Projects Showcase Preview](img/projects_preview.png)
+
+---
+
 ## Sections
 
-- **Hero (`~/`)**: Split two-line typographic introduction (`hi,` / `i'm amrit _`) with a blinking cursor and an interactive terminal coffee animation (`sudo wake-up --reason=coffee`).
+- **Hero (`~/`)**: Two-line introduction (`hi,` / `i'm amrit _`) with a blinking cursor and a terminal coffee status prompt (`sudo wake-up --reason=coffee`).
 - **About (`~/about.md`)**: Background as an engineering student, technical society leadership (devsoc), and systems development focus.
 - **Skills (`~/skills`)**: Unboxed directory-style listing organized into `languages/`, `web/`, and `design/`.
-- **Projects (`~/projects`)**: Split interactive showcase. The left column provides a directory navigation list (`01/`, `02/`, `03/`, `04/`), while the right column renders a live preview mockup window with real screenshots, taglines, tech pills, and GitHub repository links.
-- **Contact (`~/contact`)**: Bold white tagline (*"Let's build something together"*), an infinite quotes rotator cycling through classic movie and gaming lines, direct contact action buttons (`get in touch` and `resume`), verified social links, and an animated 3D isometric cube model.
-- **Footer**: Monospace terminal exit status (`amrit@portfolio:~$ exit 0`) with dynamic year stamping.
+- **Projects (`~/projects`)**: Split interactive showcase with directory navigation (`01/`, `02/`, `03/`, `04/`) on the left and a live window preview with tech pills, descriptions, and GitHub links on the right.
+- **Contact (`~/contact`)**: Bold white tagline (*"Let's build something together"*), movie/gaming quotes rotator, verified action buttons (`get in touch` & `resume`), social links, and an animated 3D isometric cube model.
+- **Footer**: Monospace terminal status (`amrit@portfolio:~$ exit 0`) with dynamic year stamping.
 
 ---
 
@@ -50,6 +60,8 @@ A personal developer portfolio built with a terminal-inspired dark aesthetic (`#
 ├── robots.txt            # Search crawler directives
 ├── sitemap.xml           # Search engine sitemap
 ├── img/                  # Previews, screenshots, and vector graphics
+│   ├── home_preview.png  # Home page screenshot
+│   ├── projects_preview.png # Interactive projects showcase screenshot
 │   ├── pomodoro-timer_preview.webp
 │   ├── wishfor_preview.webp
 │   ├── tipcalculator_preview.webp
