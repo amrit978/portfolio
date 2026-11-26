@@ -2,7 +2,7 @@
 
 > Minimal, terminal-inspired developer portfolio. Pure vanilla web — zero frameworks, zero dependencies.
 
-**[Explore Live Demo →](https://amrit-theta.vercel.app/)**
+**[Explore Live Demo →](https://amrit-kumar.vercel.app/)**
 
 ---
 
